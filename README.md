@@ -1,4 +1,4 @@
-###対象ブックの指定(絶対パス)
+### 対象ブックの指定(絶対パス)
 excel_analyzer/static/js/excel_analyzer/config.jsにて設定  
 EXCEL_FILEPATH = '対象ブックの絶対パス'
 
