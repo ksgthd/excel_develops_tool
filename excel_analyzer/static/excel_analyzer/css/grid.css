@@ -1,0 +1,18 @@
+table tbody td{
+	padding: 3px;
+	display: felx;
+	align-items: center;
+}
+
+.row_index {
+	border: solid 1.5px silver;
+}
+
+.column_name {
+	text-align: center;
+	border: solid 1.5px silver;
+}
+
+.table_besel {
+	background-color: #EEEEEE;
+}

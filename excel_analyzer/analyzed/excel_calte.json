@@ -1,0 +1,30 @@
+{
+    "table": {
+        "Sheet1": [
+            {
+                "col": "A",
+                "col_idx": 1,
+                "row": "1",
+                "sheetname": "Sheet1"
+            },
+            [
+                {},
+                {}
+            ]
+        ]
+    },
+    "names": {
+        "1_1": {
+            "col": "A",
+            "col_idx": 1,
+            "row": "1",
+            "sheetname": "Sheet1"
+        },
+        "1_27": {
+            "col": "AA",
+            "col_idx": 27,
+            "row": "1",
+            "sheetname": "Sheet1"
+        }
+    }
+}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block body %}
+<div style="min-width:1500px; width: 90%; margin:0 auto;">
+<!--	<button onclick="analyzeExcel()">取得</button>-->
+	<div id="grid">
+		<button class="btn btn-warning btn-lg" @click="update_excel" id="update_button">更新</button>
+		<button class="btn btn-success btn-lg" @click="def_name_col" id="def_name_col_button">名前定義(選択列)</button>
+		<!-- タブボタン部分 -->
+		<ul class="nav nav-tabs">
+			<li class="nav-item" v-for="(_, sheetname) in sheetData">
+			  <a :href="'#tab_content_' + sheetname" class="nav-link" data-toggle="tab">[% sheetname %]</a>
+			</li>
+		</ul>
+		<!--タブのコンテンツ部分-->
+		<div class="tab-content">
+			<div v-for="(rows, sheetname) in sheetData" :id="'tab_content_'+sheetname" class="tab-pane">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+<!--								:style="(onOrigin[sheetname][idx])? style.column_header.origin: {}"-->
+								<th class="table_besel"></th>
+								<th v-for="(cell, idx) in rows[0]" class="column_name table_besel" :class="(onOrigin[sheetname][idx])? 'bg-success':''">
+									<div style="width:100;" >
+									[% column_name(idx+1) %]
+									<input type="checkbox" v-model="columns[sheetname][idx].original" />
+									</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(row, index) in rows">
+								<td class="row_index table_besel">[% index+1 %]</td>
+								<td v-for="cell in row" style="padding:3px;">
+									<div><input type="text" v-model="cell.name"></div>
+		<!--							[% cell.name + cell.col + cell.row %]-->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+
+<div class="p-3">
+  
+
+  
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head lang="ja">
+	{% load staticfiles %}
+    <meta charset="UTF-8">
+    <title></title>
+	  <script
+  src="https://code.jquery.com/jquery-3.4.0.min.js"
+  integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+  crossorigin="anonymous"></script>
+	  <!-- Vue.JS 読み込み-->
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	  <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+	  <link rel="stylesheet" href="{% static 'excel_analyzer/css/grid_menu.css'%}" >
+	  <link rel="stylesheet" href="{% static 'excel_analyzer/css/grid.css'%}" >
+	  
+	  <!--自分のjsファイル-->
+	  <script type="text/javascript" src="{% static 'excel_analyzer/js/myexcel.js'%}"></script>
+	  <script type="text/javascript" src="{% static 'excel_analyzer/js/config.js'%}"></script>
+	  <script type="text/javascript" src="{% static 'excel_analyzer/js/controller.js'%}"></script>
+	  <script type="text/javascript" src="{% static 'excel_analyzer/js/exceltable.js'%}"></script>
+	  
+  </head>
+  <body>
+    {% block body %}
+    {% endblock %}
+	  
+  </body>
+</html>

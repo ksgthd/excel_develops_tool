@@ -1,0 +1,1 @@
+EXCEL_FILEPATH = 'C:/Users/kasuga takahide/python_excercise/xlwings/excel/name_sample.xlsx';
