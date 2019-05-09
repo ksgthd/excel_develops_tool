@@ -41,7 +41,7 @@ class Grid(object):
         result = {}
         for sheet in self.sheets:
             if sheet in self.table_map:
-                result[sheet] = [COL_TEMPLATE.copy() for i in range(len(self.table_map[sheet]))]
+                result[sheet] = [COL_TEMPLATE.copy() for i in range(len(self.table_map[sheet][0]))]
         return result
 
 
@@ -70,35 +70,49 @@ class Grid(object):
             res[ws.name] = table
         return res
 
-    def make_table_from_all_names(self, all_names):
+    def make_table_from_all_names(self, all_names=None):
         import excel_analyzer.excel as xl
         if self.wb is None:
             return False
         for sheet in self.wb.sheets:
             self.sheets.append(sheet.name)
-
         result = {}
-        for sheetname in all_names:
-            if sheetname not in self.sheets:
-                self.sheets.append(sheetname)
-            max_row, max_col = _max_range_table_type_dict(all_names[sheetname], sheetname=sheetname)
-            if max_row < 30:
-                max_row = 30
-            if max_col < 15:
-                max_col = 15
+        wss = self.wb.sheets
+        for sheetname in self.sheets:
+            if sheetname in all_names:
+                print(all_names)
+                max_row, max_col = _max_range_table_type_dict(all_names[sheetname], sheetname=sheetname)
+                if max_row < 30:
+                    max_row = 30
+                if max_col < 25:
+                    max_col = 28
+
+            else:
+                max_row, max_col = 30, 28
             table_map = []
+            area = wss[sheetname].range((1,1), (max_row, max_col)).value
             for i in range(max_row):
                 row = []
                 for j in range(max_col):
+                    if area[i][j] is None:
+                        value = ''
+                    else:
+                        value = area[i][j]
+                    if type(value) is not str:
+                        value = ''
                     cell = {
                         'col': xl.colindex2string(j+1),
                         'col_idx': j+1,
                         'row': i+1,
                         'name': '',
+                        'orgn_name': '',
                         'sheetname': sheetname,
+                        'value': value,
                     }
-                    if self.address(i, j) in self.names[sheetname]:
-                        cell = self.names[sheetname][self.address(i, j)]
+                    #print(ws.range((i+1, j+1)).value)
+                    if sheetname in self.names:
+                        if self.address(i, j) in self.names[sheetname]:
+                            cell.update(self.names[sheetname][self.address(i, j)])
                     row.append(cell)
                 table_map.append(row)
             result[sheetname] = table_map

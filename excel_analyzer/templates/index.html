@@ -5,6 +5,7 @@
 	<div id="grid">
 		<button class="btn btn-warning btn-lg" @click="update_excel" id="update_button">更新</button>
 		<button class="btn btn-success btn-lg" @click="def_name_col" id="def_name_col_button">名前定義(選択列)</button>
+		<button @click="chngDisp" class="btn btn-dark btn-lg">表示変更</button>
 		<!-- タブボタン部分 -->
 		<ul class="nav nav-tabs">
 			<li class="nav-item" v-for="(_, sheetname) in sheetData">
@@ -12,13 +13,13 @@
 			</li>
 		</ul>
 		<!--タブのコンテンツ部分-->
-		<div class="tab-content">
+		<div class="bg-info" style="position:absolute; height:30px; padding: 0 4px 0 4px; color:white;" :style="style.address_pop" id="address_pop">[% pointer.col + pointer.row %]</div>
+		<div class="tab-content" >
 			<div v-for="(rows, sheetname) in sheetData" :id="'tab_content_'+sheetname" class="tab-pane">
 				<div class="table-responsive">
 					<table class="table">
 						<thead>
 							<tr>
-<!--								:style="(onOrigin[sheetname][idx])? style.column_header.origin: {}"-->
 								<th class="table_besel"></th>
 								<th v-for="(cell, idx) in rows[0]" class="column_name table_besel" :class="(onOrigin[sheetname][idx])? 'bg-success':''">
 									<div style="width:100;" >
@@ -31,9 +32,12 @@
 						<tbody>
 							<tr v-for="(row, index) in rows">
 								<td class="row_index table_besel">[% index+1 %]</td>
-								<td v-for="cell in row" style="padding:3px;">
-									<div><input type="text" v-model="cell.name"></div>
-		<!--							[% cell.name + cell.col + cell.row %]-->
+								<td v-for="cell in row" style="padding:3px; height:30px;" :style="[(cell.name != cell.orgn_name)? ((cell.name == '')? style.changedCell_empty: style.changedCell):{}]" @mouseover="address_pop($event, cell.col, cell.row)" @mouseup="drop(cell)">
+									<div style="display: flex; height:100%">
+										<div v-if="display.cell=='name'"><input type="text" v-model="cell.name" @keydown.ctrl.90="restore_name(cell)"></div>
+										<div v-else>[% cell.value %]</div>
+										<div class="col-xs-1" style="height:100%; width:18px; background-color: cornflowerblue; " @mousedown.prevent="drag(cell)"></div>
+									</div>
 								</td>
 							</tr>
 						</tbody>

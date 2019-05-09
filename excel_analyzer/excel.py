@@ -5,7 +5,7 @@ ALPH = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O
 def colindex2string(col_idx):
     if col_idx <= 26:
         return ALPH[col_idx-1]
-    elif col_idx <= 26**2:
+    elif col_idx <= 26**2 and col_idx > 26:
         return ALPH[(col_idx//26)-1]+ALPH[(col_idx % 26)-1]
 
 

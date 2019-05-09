@@ -46,6 +46,7 @@ def names2dict(names=None):
             row = int(address.split(':')[0][sep_index+2:])
         name_dict = {
             'name': name.name,
+            'orgn_name': name.name,
             'col': col,
             'col_idx': col_idx,
             'row': row,

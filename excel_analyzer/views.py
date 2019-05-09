@@ -35,7 +35,7 @@ def analyze(request):
     names_dict = names2dict_in_sheet(all_names)
     names_dict_in_sheet = names_address_key_dict(names_dict)
     gridder = Grid(wb=wb, names=names_dict_in_sheet)
-    table_map = gridder.make_table_from_all_names(names_dict)
+    table_map = gridder.make_table_from_all_names(all_names=names_dict)
     res.update({
         'sheetData': table_map,
         'filepath': filepath,
@@ -96,8 +96,9 @@ def update_excel(request):
                 if 'col' not in cell:
                     continue
                 address = _address(cell['row'], cell['col_idx'], offset=0)
-                if address in names_dict_in_sheet[sheetname]:
-                    continue
+                if sheetname in names_dict_in_sheet:
+                    if address in names_dict_in_sheet[sheetname]:
+                        continue
                 if not cell['name']:
                     continue
                 print(cell)
